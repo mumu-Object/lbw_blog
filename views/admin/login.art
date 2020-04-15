@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 
 <head>
     <meta charset="UTF-8">
@@ -13,14 +13,14 @@
         <div class="login-container">
             <h4 class="title">黑马程序员 - 博客管理员登录</h4>
             <div class="login">
-                <form action="user.html">
+                <form action="/admin/login" method="POST" id="loginForm">
                     <div class="form-group">
                         <label>邮件</label>
-                        <input type="email" class="form-control" placeholder="请输入邮件地址">
+                        <input name="email" type="email" class="form-control" placeholder="请输入邮件地址">
                     </div>
                     <div class="form-group">
                         <label>密码</label>
-                        <input type="password" class="form-control" placeholder="请输入密码">
+                        <input name="password" type="password" class="form-control" placeholder="请输入密码">
                     </div>
                     <button type="submit" class="btn btn-primary">登录</button>
                 </form>
@@ -30,6 +30,22 @@
     </div>
     <script src="/admin/lib/jquery/dist/jquery.min.js"></script>
     <script src="/admin/lib/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/admin/js/conmon.js"></script>
+    <script>
+        $('#loginForm').on('submit',function() {
+            // serializeArray 方法 可以获取到表单中输入的内容 
+            //[{name:'email',value:'用户输入的内容'},{name:'password',value:'用户输入的内容'}]
+            var formData = serializeToJson($(this));
+            if(formData.email.trim().length == 0) {
+                alert('请输入邮件地址')
+                return false;
+            }
+            if(formData.password.trim().length == 0) {
+                alert('请输入密码')
+                return false;
+            }
+        })
+    </script>
 </body>
 
 </html>

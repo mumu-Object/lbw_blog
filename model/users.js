@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+// 引入bcrypt第三方模块
+const bcrypt = require('bcrypt');
 // 创建用户集合规则
 const userSchema = new mongoose.Schema({
   username: {
@@ -10,7 +12,7 @@ const userSchema = new mongoose.Schema({
   email: {
     type: String,
     // unique 设置为true可以保证字段不重复
-    unique: [true, '此 email 字段已存在'],
+    unique: true,
   },
   password: {
     type: String,
@@ -32,17 +34,23 @@ const userSchema = new mongoose.Schema({
 });
 // 创建集合
 const Users = mongoose.model('Users', userSchema);
-// 创建默认用户
-// Users.create({
-//   username: 'libiwei',
-//   email: '2781574046@qq.com',
-//   password: '123',
-//   role: 'admin',
-//   state: 0
-// }).then(() => console.log('创建默认用户成功成功'))
-//   .catch(err => {
-//   console.log(err.message)
-// })
+
+async function createUser() {
+  // 生成随机字符串 参数的值越大 字符串复杂度越高
+  const salt = await bcrypt.genSalt(10);
+  // 使用随机字符串进行加密 第一个参数为原文密码 第二个参数为生成的随机字符串
+  const pass = await bcrypt.hash('123', salt);
+  // 创建默认用户
+  const user = await Users.create({
+    username: 'libiwei',
+    email: '2781574046@qq.com',
+    password: pass,
+    role: 'admin',
+    state: 0
+  })
+}
+// createUser();
+
 
 // 导出用户集合
 module.exports = {

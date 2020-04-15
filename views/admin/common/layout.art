@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 
 <head>
     <meta charset="UTF-8">
@@ -14,6 +14,7 @@
   {{block 'main'}}{{/block}}
   <script src="/admin/lib/jquery/dist/jquery.min.js"></script>
   <script src="/admin/lib/bootstrap/js/bootstrap.min.js"></script>
+  <script src="/admin/js/conmon.js"></script>
   {{block 'script'}}{{/block}}
 </body>
 
