@@ -10,8 +10,6 @@ const { admin } = require('./route/admin');
 const session = require('express-session');
 // 引入连接数据库
 require('./model/connect')
-// 引入用户集合
-const { Users } = require('./model/users');
 // 引入body-parser模块
 const bodyParser = require('body-parser');
 // 创建网站服务器对象
@@ -29,15 +27,7 @@ app.set('view engine', 'art');
 // 开放静态资源访问
 app.use(express.static(path.join(__dirname, 'public')));
 // 登录拦截
-app.use('/admin', (req, res,next) => {
-  // 判断用户访问的是否是登录页面 判断用户的登录状态 如果是登录的 将请求放行 如果不是登录的 将请求重定向到登录页面
-  if (req.url != '/login' && !req.session.username) {
-    res.redirect('/admin/login');
-  } else {
-    // 将请求放行
-    next();
-  }
-})
+app.use('/admin', require('./middleware/loginGuard'));
 // 匹配home路由对象
 app.use('/home', home);
 // 匹配home路由对象
