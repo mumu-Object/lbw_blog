@@ -4,8 +4,8 @@ const express = require('express');
 const admin = express.Router();
 
 // 管理登陆页面路由
-admin.get('/login', (req, res) => {
-  res.render('admin/login')
+admin.get('/user', (req, res) => {
+  res.render('admin/article-edit')
 });
 
 // 导出路由对象

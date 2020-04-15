@@ -1,15 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <title>Blog - Content Manager</title>
-    <link rel="stylesheet" href="/admin/lib/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/admin/css/base.css">
-</head>
-
-<body>
+{{extend './common/layout.art'}}
+{{block 'main'}}
     {{include './common/header.art'}}
     <!-- 主体内容 -->
     <div class="content">
@@ -54,25 +44,22 @@
         </div>
     </div>
     <!-- /主体内容 -->
-    <script src="/admin/lib/jquery/dist/jquery.min.js"></script>
-    <script src="/admin/lib/bootstrap/js/bootstrap.min.js"></script>
-    <script src="/admin/lib/ckeditor5/ckeditor.js"></script>
-    <script type="text/javascript">
-    
-        let editor;
+{{/block}}
+{{block 'script'}}
+  <script src="/admin/lib/ckeditor5/ckeditor.js"></script>
+  <script type="text/javascript">
+        
+  let editor;
 
-        ClassicEditor
-                .create( document.querySelector('#editor'))
-                .then(newEditor => {
-                    editor = newEditor;
-                })
-                .catch( error => {
-                    console.error( error );
-                });
-
-        // 获取数据
-        // const editorData = editor.getData();
-    </script>
-</body>
-
-</html>
+  ClassicEditor
+      .create( document.querySelector('#editor'))
+      .then(newEditor => {
+          editor = newEditor;
+      })
+      .catch( error => {
+          console.error( error );
+      });
+            // 获取数据
+            // const editorData = editor.getData();
+  </script>
+{{/block}}

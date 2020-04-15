@@ -6,7 +6,10 @@ const path = require('path');
 const { home } = require('./route/home');
 // 引入home路由对象
 const { admin } = require('./route/admin');
-
+// 引入连接数据库
+require('./model/connect')
+// 引入用户集合
+const { Users } = require('./model/users');
 // 创建网站服务器对象
 const app = express();
 // 当渲染后缀为art的模板时 使用express-art-template
@@ -21,7 +24,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/home', home);
 // 匹配home路由对象
 app.use('/admin', admin);
-
 
 // 监听端口
 app.listen(80, () => {
