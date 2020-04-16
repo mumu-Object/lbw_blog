@@ -8,23 +8,34 @@
             <div class="main">
                 <!-- 分类标题 -->
                 <div class="title">
-                    <h4>5b9a716cb2d2bf17706bcc0a</h4>
-                    <p class="tips">{{message ? message : '请输入以下内容添加用户' }}</p>
+                    <h4>{{modifyUser ? '修改' : '添加'}}用户</h4>
+                <p class="tips {{message ? 'text-danger' : 'text-success'}}">{{message ? message : '请输入以下内容添加用户' }}</p>
                 </div>
                 <!-- /分类标题 -->
-                <form class="form-container" action="/admin/user-edit" method="POST">
+                <form class="form-container" action="/admin/user-{{modifyUser ? 'modify?id=' + modifyUser._id : 'edit'}}" method="POST">
                     <div class="form-group">
                         <label>用户名</label>
-                        <input name="username" type="text" class="form-control" placeholder="请输入用户名">
+                        <input value="{{modifyUser ? modifyUser.username : ''}}" name="username" type="text" class="form-control" placeholder="请输入用户名">
                     </div>
                     <div class="form-group">
                         <label>邮箱</label>
-                        <input name="email" type="email" class="form-control" placeholder="请输入邮箱地址">
+                        <input value="{{modifyUser ? modifyUser.email : ''}}" name="email" type="email" class="form-control" placeholder="请输入邮箱地址">
                     </div>
+                    {{if !modifyUser}}
                     <div class="form-group">
                         <label>密码</label>
-                        <input name="password" type="password" class="form-control" placeholder="请输入密码">
+                        <input value="{{modifyUser ? modifyUser.password : ''}}" name="password" type="password" class="form-control" placeholder="请输入密码">
                     </div>
+                    {{/if}}
+                    {{if modifyUser}}
+                    <div class="form-group">
+                        <label>角色</label>
+                        <select class="form-control" name="role">
+                            <option {{modifyUser.role == 'normal' ? 'selected' : ''}} value="normal">普通用户</option>
+                            <option {{modifyUser.role == 'admin' ? 'selected' : ''}} value="admin">超级管理员</option>
+                        </select>
+                    </div>
+                    {{else}}
                     <div class="form-group">
                         <label>角色</label>
                         <select class="form-control" name="role">
@@ -32,6 +43,16 @@
                             <option value="admin">超级管理员</option>
                         </select>
                     </div>
+                    {{/if}}
+                    {{if modifyUser}}
+                    <div class="form-group">
+                        <label>状态</label>
+                        <select class="form-control" name="state">
+                            <option {{modifyUser.state == 0 ? 'selected' : ''}} value="0">启用</option>
+                            <option {{modifyUser.state == 1 ? 'selected' : ''}} value="1">禁用</option>
+                        </select>
+                    </div>
+                    {{else}}
                     <div class="form-group">
                         <label>状态</label>
                         <select class="form-control" name="state">
@@ -39,6 +60,7 @@
                             <option value="1">禁用</option>
                         </select>
                     </div>
+                    {{/if}}
                     <div class="buttons">
                         <input type="submit" class="btn btn-primary">
                     </div>

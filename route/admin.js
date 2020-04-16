@@ -19,7 +19,13 @@ admin.get('/logout', require('./admin/logout'));
 admin.get('/user-edit', require('./admin/userEdit'));
 
 // 添加用户
-admin.post('/user-edit',require('./admin/addUser'))
+admin.post('/user-edit', require('./admin/addUser'));
+
+// 修改用户
+admin.post('/user-modify', require('./admin/userModify'));
+
+// 删除用户
+admin.post('/remove-user', require('./admin/removeUser'));
 // 导出路由对象
 module.exports = {
   admin

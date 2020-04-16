@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Joi = require('joi');
 // 引入bcrypt第三方模块
 const bcrypt = require('bcrypt');
 // 创建用户集合规则
@@ -51,8 +52,36 @@ async function createUser() {
 }
 // createUser();
 
+// 创建添加用户验证规则
+const addUserSchema = {
+  username: Joi.string().min(2).max(16).required().error(new Error('用户名不符合验证规则')),
+  email: Joi.string().email().required().error(new Error('邮箱不符合验证规则')),
+  password: Joi.string().regex(/^[a-zA-z0-9]{3,30}$/).required().error(new Error('密码不符合验证规则')),
+  role: Joi.string().valid('normal', 'admin').required().error(new Error('非法的角色值')),
+  state: Joi.number().valid(0, 1).required().error(new Error('非法的状态值'))
+};
+
+// 创建修改用户验证规则
+const modifyUserSchema = {
+  username: Joi.string().min(2).max(16).required().error(new Error('修改的用户名不符合验证规则')),
+  email: Joi.string().email().required().error(new Error('修改的邮箱不符合验证规则')),
+  role: Joi.string().valid('normal', 'admin').required().error(new Error('修改的是非法的角色值')),
+  state: Joi.number().valid(0, 1).required().error(new Error('修改的是非法的状态值'))
+}
+
+const validateUser = user => {
+  // 开始验证添加用户规则
+  return Joi.validate(user, addUserSchema);
+}
+
+const modifyValidate = user => {
+  // 开始验证修改用户规则
+  return Joi.validate(user, modifyUserSchema);
+}
 
 // 导出用户集合
 module.exports = {
-  Users
+  Users,
+  validateUser,
+  modifyValidate
 }

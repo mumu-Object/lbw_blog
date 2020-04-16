@@ -32,6 +32,18 @@ app.use('/admin', require('./middleware/loginGuard'));
 app.use('/home', home);
 // 匹配home路由对象
 app.use('/admin', admin);
+// 错误处理中间件
+app.use((err, req, res, next) => {
+  // 将对象字符串错误信息
+  const errObj = JSON.parse(err);
+  // 判断用户是修改用户出错还是添加用户出错
+  if (errObj.message.indexOf('修改的') != -1) {
+    res.redirect(`${errObj.path}message=${errObj.message}`);
+  } else {
+    res.redirect(`${errObj.path}?message=${errObj.message}`);
+  }
+});
+
 
 // 监听端口
 app.listen(80, () => {

@@ -10,6 +10,10 @@ const login = async (req, res) => {
   }
   // 在数据库中查找是否存在此用户 不存在会返回null 存在则会返回用户信息
   let user = await Users.findOne({ email: email });
+  // 判断用户的角色是否是超级管理员
+  if (user.role == 'normal') {
+    return res.status(400).render('admin/loginerror', { msg: '用户权限不够,请联系管理员' });
+  }
   // 判断是否找到此用户
   if (user) {
     // 判断密码是否正确

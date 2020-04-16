@@ -1,6 +1,11 @@
 # lbw_blog
 博客项目
 
+## Blog项目运行所依赖的环境
+
+1. node.js
+2. mongoDB
+
 ### bcript 第三方模块依赖的其他环境
 
 1. Python 2.x 安装Python2.x版本（比如2.7.10）并且把Python的安装目录设置在path系统环境变量中
