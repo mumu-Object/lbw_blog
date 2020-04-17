@@ -35,7 +35,7 @@
                             <td>{{$value.state == 0 ? '启用' : '禁用'}}</td>
                             <td>
                                 <a href="/admin/user-edit?id={{@$value._id}}" class="glyphicon glyphicon-edit"></a>
-                                <i data-id="{{@$value._id}}" class="delete glyphicon glyphicon-remove" data-toggle="modal" data-target=".confirm-modal"></i>
+                                <i data-user="{{users && users.length == 1 ? true : false}}" data-page="{{page ? page : 1}}" data-id="{{@$value._id}}" class="delete glyphicon glyphicon-remove" data-toggle="modal" data-target=".confirm-modal"></i>
                             </td>
                         </tr>
                         {{/each}}
@@ -73,6 +73,8 @@
                     <div class="modal-body">
                         <p>您确定要删除这个用户吗?</p>
                         <input type="hidden" name="id" class="hidden">
+                        <input type="hidden" name="page" class="pagehidden">
+                        <input type="hidden" name="user" class="userhidden">
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
@@ -87,6 +89,8 @@
         <script>
             $('.delete').click(function(){
                 $('.hidden').val($(this).attr('data-id'));
+                $('.pagehidden').val($(this).attr('data-page'));
+                $('.userhidden').val($(this).attr('data-user'));
             })
         </script>
     {{/block}}

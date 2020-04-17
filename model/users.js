@@ -42,15 +42,19 @@ async function createUser() {
   // 使用随机字符串进行加密 第一个参数为原文密码 第二个参数为生成的随机字符串
   const pass = await bcrypt.hash('123', salt);
   // 创建默认用户
-  const user = await Users.create({
-    username: 'libiwei',
-    email: '2781574046@qq.com',
-    password: pass,
-    role: 'admin',
-    state: 0
-  })
+  try {
+    await Users.create({
+      username: 'admin',
+      email: 'admin@qq.com',
+      password: pass,
+      role: 'admin',
+      state: 0
+    })
+  } catch (ex) {
+    console.log(ex.message);
+  }
 }
-// createUser();
+createUser();
 
 // 创建添加用户验证规则
 const addUserSchema = {
