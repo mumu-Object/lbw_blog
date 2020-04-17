@@ -9,7 +9,7 @@ const { admin } = require('./route/admin');
 // 引入express-session
 const session = require('express-session');
 // 引入连接数据库
-require('./model/connect')
+require('./model/connect');
 // 引入body-parser模块
 const bodyParser = require('body-parser');
 // 创建网站服务器对象
@@ -30,11 +30,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/admin', require('./middleware/loginGuard'));
 // 匹配home路由对象
 app.use('/home', home);
-// 匹配home路由对象
+// 匹配admin路由对象
 app.use('/admin', admin);
 // 错误处理中间件
 app.use((err, req, res, next) => {
-  // 将对象字符串错误信息
+  // 将对象字符串错误信息字转换成错误对象
   const errObj = JSON.parse(err);
   // 判断用户是修改用户出错还是添加用户出错
   if (errObj.message.indexOf('修改的') != -1) {
@@ -43,7 +43,6 @@ app.use((err, req, res, next) => {
     res.redirect(`${errObj.path}?message=${errObj.message}`);
   }
 });
-
 
 // 监听端口
 app.listen(80, () => {

@@ -1,5 +1,5 @@
 # lbw_blog
-博客项目
+黑马程序员系列视频教程博客项目 （提供静态资源页面）
 
 ## Blog项目运行所依赖的环境
 
@@ -24,17 +24,12 @@
 
 1. 登录页面 
 
-   ![](./yulantu/login.png)
-
    默认邮箱:admin@qq.com 
 
    默认用户密码: 123
 
    提示:服务器启动成功之后把在 model/users.js中的 createUser 函数执行注释掉 (这样以后就不再会打印：`E11000 duplicate key error collection: blog.users index: email_1 dup key: { email: "admin@qq.com" }`)
 
-2. 用户列表页面
 
-   ![](./yulantu/user-page.png)
 
-   
 

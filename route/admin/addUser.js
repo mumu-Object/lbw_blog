@@ -23,8 +23,12 @@ module.exports = async (req, res,next) => {
   // 加密密码
   // 生成随机字符串
   const salt = await bcrypt.genSalt(10);
+  // 密码加密
   const password = await bcrypt.hash(req.body.password, salt);
+  // 设置加密后的密码到用户提交的数据中
   req.body.password = password;
+  // 添加用户
   await Users.create(req.body);
+  // 重定向到用户列表页面
   res.redirect('/admin/user');
 }

@@ -29,7 +29,7 @@
                         {{each users}}
                         <tr>
                             <td>{{@$value._id}}</td>
-                            <td>{{$value.username}}<code>{{userInfo.email == $value.email ? '（当前用户）' : ''}}</code></td>
+                            <td>{{$value.username}} {{if userInfo.email == $value.email}}<code>(当前用户)</code>{{/if}}</td>
                             <td>{{$value.email}}</td>
                             <td>{{$value.role == 'admin' ? '超级管理员' : '普通用户'}}</td>
                             <td>{{$value.state == 0 ? '启用' : '禁用'}}</td>
