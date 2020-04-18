@@ -33,6 +33,8 @@
                 <div class="form-group">
                     <label>作者</label>
                     {{if modifyArticle}}
+                    <input type="hidden" name="page" value="{{page}}">
+                    <input type="hidden" name="isOne" value="{{isOne}}">
                     <input value="{{modifyArticle.author.username}}" type="text" class="form-control" readonly>
                     {{else}}
                     <input value="{{userInfo.username}}" type="text" class="form-control" readonly>

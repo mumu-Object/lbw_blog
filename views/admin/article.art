@@ -32,12 +32,13 @@
                         <td>{{dateformat($value.publishDate,'yyyy-mm-dd')}}</td>
                         <td>{{$value.author.username}} {{if $value.author.username == userInfo.username}}<code>(我的文章)</code>{{/if}}</td>
                         <td>
-                            <a href="/admin/article-modify?id={{@$value._id}}" class="glyphicon glyphicon-edit"></a>
-                            <i data-id="{{@$value._id}}" class="glyphicon glyphicon-remove" data-toggle="modal" data-target=".confirm-modal"></i>
+                            <a href="/admin/article-modify?page={{articles.page}}&isOne={{articles.records.length == 1 ? true : false}}&id={{@$value._id}}" class="glyphicon glyphicon-edit"></a>
+                            <i data-page="{{articles.page}}" data-isOne="{{articles.records.length == 1 ? true : false}}" data-id="{{@$value._id}}" class="glyphicon glyphicon-remove" data-toggle="modal" data-target=".confirm-modal"></i>
                         </td>
                     </tr>
                     {{/each}}
                 </tbody>
+                
             </table>
             <!-- /内容列表 -->
             <!-- 分页 -->

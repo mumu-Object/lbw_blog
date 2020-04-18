@@ -1,5 +1,5 @@
 const {Article } = require('../../model/article');
-module.exports = async (req, res,next) => {
+module.exports = async (req, res, next) => {
   try {
     await Article.findOneAndDelete({ _id: req.body.id });
   } catch (err) {

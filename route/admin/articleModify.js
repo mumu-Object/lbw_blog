@@ -16,8 +16,13 @@ module.exports = (req, res,next) => {
       const modifyArticle = await Article.findOne({ _id: fields.id });
       await Article.updateOne(modifyArticle, modifyObj);
     } catch (err) {
-      return next(JSON.stringify({ path: 'admin/article-edit', message: err.message }));
+      // 将验证错误交给错误处理中间件处理
+      return next(JSON.stringify({
+        path: `/admin/user-edit?id=${req.query.id}&`,
+        message: '修改的' + ex.message
+      }));
     }
+    res.redirect('/admin/article?page=' + fields.page + '&isOne=' + fields.isOne);
   });
-  res.redirect('/admin/article');
+  
 }
