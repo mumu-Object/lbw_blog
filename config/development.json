@@ -1,0 +1,8 @@
+{
+  "db":{
+    "user": "libiwei",
+    "pwd" : "lbw000826",
+    "host": "localhost",
+    "port": "27017"
+  }
+}

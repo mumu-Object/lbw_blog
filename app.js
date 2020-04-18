@@ -26,6 +26,19 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'art');
 // 开放静态资源访问
 app.use(express.static(path.join(__dirname, 'public')));
+// 导入morgan 打印浏览器请求信息模块
+const morgan = require('morgan');
+const config = require('config');
+console.log(config.get('title'))
+// 运行环境
+if (process.env.NODE_ENV == 'development') {
+  // 开发环境
+  console.log('当前是开发环境')
+  app.use(morgan('dev'));
+} else{
+  // production 生产环境
+  console.log('当前是生产环境')
+}
 // 登录拦截
 app.use('/admin', require('./middleware/loginGuard'));
 // 匹配home路由对象
@@ -35,11 +48,15 @@ app.use('/admin', admin);
 // 错误处理中间件
 app.use((err, req, res, next) => {
   // 将对象字符串错误信息字转换成错误对象
+  console.log(err)
   const errObj = JSON.parse(err);
   // 判断用户是修改用户出错还是添加用户出错
   if (errObj.message.indexOf('修改的') != -1) {
     res.redirect(`${errObj.path}message=${errObj.message}`);
-  } else {
+  } else if (errObj.message.indexOf('请先进行登录') != -1) {
+    res.redirect(`${errObj.path}message=${errObj.message}`);
+  }
+  else {
     res.redirect(`${errObj.path}?message=${errObj.message}`);
   }
 });

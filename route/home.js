@@ -15,7 +15,11 @@ home.post('/login', require('./home/login'))
 home.get('/index', require('./home/index'))
 
 // 文章详情页面
-home.get('/article',require('./home/article'))
+home.get('/article', require('./home/article'))
+
+// 发表评论路由
+home.post('/comment', require('./home/comment'));
+
 // 导出路由对象
 module.exports = {
   home
