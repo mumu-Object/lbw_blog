@@ -156,3 +156,13 @@ textarea {
 	font-weight: bold;
 }
 /* 文章标题结束 */
+.brief{
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: 3;
+	-webkit-box-orient: vertical;
+}
+textarea{
+	resize: none;
+}
